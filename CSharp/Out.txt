@@ -1,3 +1,7 @@
+class scope s
+class scope s
+method scope s
+block scope
 Hello from main
 Hello
 world
@@ -5,3 +9,12 @@ world
 Goodbye
 world
 
+Hello1
+world1
+another greeting
+Hello
+The value of pi in Math is 3.14159265358979
+The value of pi in Math is 3.14159265358979, and e is 2.71828182845905
+sqrt2^2 = 2
+1/2=0
+1.0/2=0.5
