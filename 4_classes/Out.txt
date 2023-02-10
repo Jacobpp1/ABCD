@@ -1,0 +1,13 @@
+v = 2,3,10
+u = 1,2,3
+u+v = 3,5,13
+2*u = 2,4,6
+2*(u+v) = 6,10,26
+2*(u-v) = -2,-2,-14
+Dot product of u and v = 38
+Dot product of u and v = 38
+Cross product of u and v = 11,-4,-1
+Norm of u = 3.74165738677394
+Testing ToString override: u = (1, 2, 3) and (1, 2, 3
+comparing u and v: False
+comparing u and u: True
