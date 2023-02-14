@@ -8,6 +8,17 @@ Dot product of u and v = 38
 Dot product of u and v = 38
 Cross product of u and v = 11,-4,-1
 Norm of u = 3.74165738677394
-Testing ToString override: u = (1, 2, 3) and (1, 2, 3
+Testing ToString override: u = (1, 2, 3) and (1, 2, 3)
 comparing u and v: False
 comparing u and u: True
+Epsilon exercise
+my max int = 2147483647
+my min int = -2147483648, while int.MinValue = -2147483648
+The double machine epsilon is (2.22044604925031E-16), while the 52-bit representation gives: (2.22044604925031E-16)
+The float machine epsilon is (2.22044604925031E-16), while the 23-bit representation gives: (1.19209289550781E-07)
+sumA-1 = 0.000000e+000 should be 1.110223e-010
+sumB-1 = 1.110223e-010 should be 1.110223e-010
+d1=7.999999999999999e-001
+d2=8.000000000000000e-001
+d1==d2 ? => False
+Testing approx with d1 and d2: True
