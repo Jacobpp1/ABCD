@@ -1,0 +1,5 @@
+nthreads=1, nterms=100000000
+x.a=1, x.b=100000001, i=0
+thread number 1, a=1, b=100000001
+thread number 1 partial sum=18.9978964138526
+Total sum = 18.9978964138526
