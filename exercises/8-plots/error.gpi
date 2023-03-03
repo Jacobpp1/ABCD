@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "Error.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 800
+set title "Error function"
+plot [-5:5][-5:5] error.cs
