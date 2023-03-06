@@ -1,0 +1,24 @@
+nthreads=4, nterms=200000000
+x.a=1, x.b=50000001, i=0
+x.a=50000001, x.b=100000001, i=1
+x.a=100000001, x.b=150000001, i=2
+x.a=150000001, x.b=200000001, i=3
+Total sum = 19.691043591913
+Parallel.For sum = 13.1568365260751
+___________
+Time for one thread: Real 1.30, user 7.11, sys 0.00
+Time for one thread without Parallel.For: Real 0.45, user 0.44, sys 0.00
+
+Time for two threads: Real 1.07, user 7.14, sys 0.00
+Time for two threads without Parallel.For: Real 0.23, user 0.45, sys 0.00
+
+Time for three threads: Real 1.04, user 7.44, sys 0.00
+Time for three threads without Parallel.For: Real 0.17, user 0.49, sys 0.00
+
+Time for four threads: Real 0.98, user 7.22, sys 0.00
+Time for four threads without Parallel.For: Real 0.13, user 0.49, sys 0.00
+
+Parallel.For is probably slower 
+real 1.01
+user 7.45
+sys 0.00

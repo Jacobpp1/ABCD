@@ -1,0 +1,12 @@
+Epsilon exercise
+my max int = 2147483647, while int.MaxValue = 2147483647
+my min int = -2147483648, while int.MinValue = -2147483648
+The double machine epsilon is (2.22044604925031E-16), while the 52-bit representation gives: (2.22044604925031E-16)
+The float machine epsilon is (1.192093E-07), while the 23-bit representation gives: (1.19209289550781E-07)
+sumA-1 = 0.000000e+000 should be 1.110223e-010
+sumB-1 = 1.110223e-010 should be 1.110223e-010
+There is a difference because of the rounding of doubles. The bit-representation of irrational numbers makes them round differently and so adding one first or last are not equal.
+d1=7.999999999999999e-001
+d2=8.000000000000000e-001
+d1==d2 gives False
+Testing approx with d1 and d2: True
