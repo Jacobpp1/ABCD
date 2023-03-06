@@ -1,0 +1,12 @@
+set terminal svg
+set key bottom right
+set output "Lngamma.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 800
+set title "ln of gamma function"
+plot [0:20]\
+ "lngamma.data" using ($1):($2) with lines lt 2 title "ln of gamma function"\

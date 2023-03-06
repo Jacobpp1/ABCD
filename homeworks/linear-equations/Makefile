@@ -10,6 +10,14 @@ funcs.dll : funcs.cs
 #	mcs -target:library -out:$@ $(filter %.cs,$^) -reference:matrix.dll
 	mcs -target:library -out:$@ $(filter %.cs,$^) -reference:matrix.dll
 
+out.times.data : main.exe Makefile
+	>$@
+	for N in $$(seq 100 20 200); do \
+		time --format "$$N %e" --output $@ --append \
+		mono $< -size:$$N 1>out 2>err;
+	done
+
+
 #matrix.dll : vector.cs matrix.cs
 #    mcs -target:library -out:$@ $^
 

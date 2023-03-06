@@ -36,11 +36,12 @@ public static partial class funcs{
 	}
 
 	public static matrix QRGSinverse(matrix Q, matrix R){
+		matrix outMat = new matrix(Q.size1, Q.size2);
 		for (int i=0; i<Q.size2; i++){
 			vector e = new vector(Q.size2);
 			e[i] = 1;
-			Q[i] = QRGSsolve(Q,R,e);
+			outMat[i] = QRGSsolve(Q,R,e);
 		}
-		return Q;
+		return outMat;
 	}
 }

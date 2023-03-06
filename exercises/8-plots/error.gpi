@@ -6,6 +6,7 @@ set ylabel "y"
 set tics out
 set xzeroaxis
 set yzeroaxis
-set samples 800
+set samples 1000
 set title "Error function"
-plot [-5:5][-5:5] error.cs
+plot [-5:5] "error.data" using ($1):($2) with lines lt 2 title "Error function"\
+,"err_tab.data" using ($1):($2) with points pt 4 title "Tabulated"\

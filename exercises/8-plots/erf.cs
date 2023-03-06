@@ -1,7 +1,7 @@
 using static System.Math;
 public static partial class sfuns{
 
-static double erf(double x){
+public static double erf(double x){
 /// single precision error function (Abramowitz and Stegun, from Wikipedia)
 if(x<0) return -erf(-x);
 double[] a={0.254829592,-0.284496736,1.421413741,-1.453152027,1.061405429};
