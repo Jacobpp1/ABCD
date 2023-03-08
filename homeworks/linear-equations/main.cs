@@ -3,10 +3,14 @@ using static System.Console;
 using static System.Math;
 
 class main{
-	public static void Main(){
+	public static void Main(string[] args){
 		//A1
+		var rnd = new Random(1); // debugging !
 		WriteLine("Problem A1");
 		matrix A = new matrix("3,4,5;6,7,18;9,10,11;12,13,15");
+		for(int i=0;i<A.size1;i++)
+		for(int j=0;j<A.size2;j++)
+			A[i,j]=rnd.NextDouble();
 		A.print();
 		matrix R = new matrix(A.size2,A.size2);
 		funcs.QRGSdecomp(A, R);
@@ -47,6 +51,32 @@ class main{
 
 		//C
 		WriteLine("Problem C");
+		int N = 2;
 		
+		foreach(var arg in args){
+			WriteLine(args);
+			var words = arg.Split(':');
+			if(words[0]=="-size"){
+				var number=words[1].Split(',');
+				WriteLine(number);
+			}
+		}
+		//WriteLine(args);
+		//N = int.Parse(args[0]);
+		
+		//N = input;
+		N = 3;
+
+		A = rnd_matrix(N,N);
+		A.print();
+		
+	}
+	static matrix rnd_matrix(int n, int m){
+		var rnd = new Random(1); // debugging !
+		matrix A = new matrix(n,m);
+		for(int i=0;i<A.size1;i++)
+			for(int j=0;j<A.size2;j++)
+				A[i,j]=rnd.NextDouble();
+		return A;
 	}
 }
