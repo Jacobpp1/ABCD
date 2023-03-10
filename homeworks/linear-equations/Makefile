@@ -1,6 +1,9 @@
-default: Out.txt out_times.data
+default : Out.txt out_times.data times.svg
 Out.txt : main.exe Makefile
 	mono main.exe > Out.txt
+
+times.svg : plot.gpi out_times.data
+	gnuplot $<
 
 main.exe : main.cs funcs.dll matrix.dll
 #	mcs -target:exe -out:$@ $(filter %.cs,$^) -reference:./matlib/matrix.dll
@@ -13,7 +16,7 @@ funcs.dll : funcs.cs
 
 out_times.data : main.exe
 	>$@
-	for N in $$(seq 100 20 200); do \
+	for N in $$(seq 10 10 200); do \
 		time --format "$$N %e" --output $@ --append \
 		mono $< -size:$$N 1>out 2>err ;\
 	done
@@ -24,4 +27,4 @@ out_times.data : main.exe
 .PHONEY : clean
 
 clean:
-	$(RM) *.exe [Oo]ut* log*
+	$(RM) *.exe [Oo]ut* log* *.data

@@ -1,0 +1,13 @@
+set terminal svg
+set key bottom right
+set output "Time_fit.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 800
+set title "Fitting time"
+f(x) = a*x**3 + b*x**2 + c*x + d
+fit f(x) "out_times.data" using 1:2 via a, b, c, d
+plot [0:200] "out_times.data" using ($1):($2) with lines lt 2 title "data", f(x)
