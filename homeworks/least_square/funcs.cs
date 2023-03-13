@@ -2,6 +2,60 @@ using System;
 using static System.Math;
 using static System.Console;
 public class funcs{
+    
+    public static (vector, matrix) lsfit(Func<double, double>[] fs , vector x , vector y , vector dy ) {
+        int n = x.size, m=fs.Length;
+        var A = new matrix(n,m);
+        var b = new vector(n);
+        for ( int i=0; i<n; i++){
+            b[i]=y[i]/dy[i];
+            for(int k = 0; k<m; k++) A[i,k] = fs[k](x[i])/dy[i];
+        }
+        var qra = new GSQR(A);
+        vector c = qra.solve(b);
+        var pinvA = qra.pinverse();
+        var S = pinvA*pinvA.T;
+        return (c,S);
+    }
+
+
+    // From earlier exercises
+	public static void QRGSdecomp(matrix A, matrix R){
+		for(int i=0; i<R.size1; i++){
+			R[i,i] = A[i].norm();
+			A[i] /= R[i,i];
+			for(int j=i+1; j<R.size1; j++){
+				R[i,j] = A[i].dot(A[j]);
+				A[j] -= A[i]*R[i,j];
+			}
+		}
+	}
+	
+	public static vector QRGSsolve(matrix Q, matrix R, vector b){
+		vector x = new vector(R.size1);
+		
+		x = Q.transpose()*b;
+        //Backsub in for loop.
+		for (int i=x.size-1; i>=0; i--){
+			double sum=0;
+			for (int k=i+1; k<x.size; k++) sum += R[i,k] * x[k];
+			x[i] = (x[i]-sum)/R[i,i];
+		}
+
+		return x;
+	}
+
+	public static matrix QRGSinverse(matrix Q, matrix R){
+		matrix outMat = new matrix(Q.size1, Q.size2);
+		for (int i=0; i<Q.size2; i++){
+			vector e = new vector(Q.size2);
+			e[i] = 1;
+			outMat[i] = QRGSsolve(Q,R,e);
+		}
+		return outMat;
+	}
+/////////////////////////////////////////////////////////////////
+
     public static void timesJ(matrix A, int p, int q, double theta){
 	    double c=Cos(theta),s=Sin(theta);
 	    for(int i=0;i<A.size1;i++){

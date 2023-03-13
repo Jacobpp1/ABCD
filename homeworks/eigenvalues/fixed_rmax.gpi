@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "rmax_fixed.svg"
+set xlabel "dr"
+set ylabel "E0"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 800
+set title "rmax fixed"
+plot [0:1] "fixed_rmax.data" using ($1):($2) with lines lt 2 title "lowest eigenenergy"

@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "dr_fixed.svg"
+set xlabel "rmax"
+set ylabel "E0"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 800
+set title "dr fixed"
+plot [0:5] "fixed_dr.data" using ($1):($2) with lines lt 2 title "lowest eigenenergy"
