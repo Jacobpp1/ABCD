@@ -1,0 +1,4 @@
+A
+From the fit I got lambda to be 1.70e-001 days^-1, so the half life is T=ln(2)/lambda=4.08e+000d
+Modern value is known to be 3.63d
+Fit parameters: ln(a)=4.95e+000, lambda=1.70e-001

@@ -4,6 +4,7 @@ using static System.Console;
 using System.IO;
 
 public class main{
+
     public static void Main(string[] args){
         //A
         matrix A = rnd_matrix(4,4);
@@ -103,7 +104,8 @@ public class main{
         double[] rmaxs = {0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1, 4.4, 4.7, 5};
         //WriteLine("rmax from 0.8 to 5 in intervals of 0.3:");
         toWrite = $"";
-        var eigfuns = new vector[int(5.0/0.8)];
+        int len_vec = (int)(5.0/0.8);
+        var eigfuns = new vector[len_vec];
         for(double i=0.8; i<=5; i+=0.3){
             rmax = i;
             H = ham_creator(rmax, dr);
@@ -116,13 +118,19 @@ public class main{
         }
         File.WriteAllText("fixed_dr.data", toWrite);
         
-        var rs = new List<double>();
-        for(double r=0.1; r<10; r+=0.2) rs.Add(r);
-        string efuns = $"";
-        foreach(double r in rs){
-            efuns += $"{r}\t{V[0]/r}";
+        // Plot eigenfunctions as function of r(?) for different dr.
+        for(int i=0; i<4; i++){
+            toWrite = $"";
+            dr = 0.3;
+            rmax = rmaxs[i];
+            H = ham_creator(rmax, dr);
+            V = H.copy();
+            V.set_identity();
+            funcs.cyclic(H,V);
+            for(int j=0; j<50; j++)
+                toWrite += $"{(j+1)*0.2}\t{V[0][j]}";
+            File.WriteAllText("eigenfuns_test.data",toWrite);
         }
-        File.WriteAllText("eigenfuns.data", efuns);
     }
 
     static matrix ham_creator(double rmax, double dr){

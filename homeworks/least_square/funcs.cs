@@ -11,10 +11,12 @@ public class funcs{
             b[i]=y[i]/dy[i];
             for(int k = 0; k<m; k++) A[i,k] = fs[k](x[i])/dy[i];
         }
-        var qra = new GSQR(A);
-        vector c = qra.solve(b);
-        var pinvA = qra.pinverse();
-        var S = pinvA*pinvA.T;
+        matrix R = new matrix(m,m);
+        matrix Q = A.copy();
+        QRGSdecomp(Q, R);
+        vector c = QRGSsolve(Q, R, b);
+        //var pinvA = QRGSinverse(Q,R);
+        var S = new matrix(2,2);// pinvA*pinvA.T;
         return (c,S);
     }
 

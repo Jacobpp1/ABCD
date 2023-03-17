@@ -1,0 +1,13 @@
+set terminal svg
+set key bottom right
+set output "gnuplot_fit.svg"
+set xlabel "activity"
+set ylabel "time"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "ThX radioactivity"
+f(x) = log(a)-b*x
+fit f(x) "thx.data" using 1:(log($2)):($3) via a,b
+plot [0:] "thx.data" using ($1):(log($2)):($3/$2) with errorbars lt 2 title "ThX radioactivity gnuplot fit", f(x)
