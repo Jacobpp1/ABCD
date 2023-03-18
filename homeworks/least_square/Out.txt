@@ -2,3 +2,11 @@ A
 From the fit I got lambda to be 1.70e-001 days^-1, so the half life is T=ln(2)/lambda=4.08e+000d
 Modern value is known to be 3.63d
 Fit parameters: ln(a)=4.95e+000, lambda=1.70e-001
+B)
+Covariance matrix is:
+
+   0.00115  -0.000178 
+ -0.000178   4.83e-05 
+Uncertainty of ln(a) is 0.0339477544244211 and uncertainty of lambda is 0.00695008119420514
+Thus the uncertainty of the half life is |dT/dlambda*deltalambda| = ln(2)/(lambda^2)*delta_lambda = 1.67e-001
+This does not get the modern value within the uncertainty, [3.91313170396043, 4.24696113412639]

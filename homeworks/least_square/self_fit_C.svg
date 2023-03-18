@@ -139,24 +139,24 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
-	<g id="gnuplot_plot_1" ><title>ThX radioactivity fit</title>
+	<g id="gnuplot_plot_1" ><title>ThX radioactivity fit, prob C, subtract error</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(498.09,363.30)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >ThX radioactivity fit, prob C, subtract error</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M506.48,359.40 L549.04,359.40 M111.80,85.11 L142.07,106.30 L172.33,127.48 L202.60,148.67 L263.14,191.04 L353.94,254.59
+		L384.21,275.77 L475.02,339.33 L535.55,381.70  '/></g>
+	</g>
+	<g id="gnuplot_plot_2" ><title>ThX radioactivity data, prob C</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(498.09,381.30)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="Arial" >ThX radioactivity fit</tspan></text>
+		<text><tspan font-family="Arial" >ThX radioactivity data, prob C</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M506.48,377.40 L549.04,377.40 M111.80,80.21 L142.07,100.57 L172.33,120.92 L202.60,141.27 L263.14,181.97 L353.94,243.03
-		L384.21,263.38 L475.02,324.44 L535.55,365.14  '/></g>
-	</g>
-	<g id="gnuplot_plot_2" ><title>ThX radioactivity data</title>
-<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<g transform="translate(498.09,399.30)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="Arial" >ThX radioactivity data</tspan></text>
-	</g>
-</g>
-<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M506.48,395.40 L549.04,395.40 M506.48,390.90 L506.48,399.90 M549.04,390.90 L549.04,399.90 M111.80,87.62 L111.80,77.38
+	<path stroke='rgb(  0, 158, 115)'  d='M506.48,377.40 L549.04,377.40 M506.48,372.90 L506.48,381.90 M549.04,372.90 L549.04,381.90 M111.80,87.62 L111.80,77.38
 		M107.30,87.62 L116.30,87.62 M107.30,77.38 L116.30,77.38 M142.07,107.30 L142.07,95.32 M137.57,107.30 L146.57,107.30
 		M137.57,95.32 L146.57,95.32 M172.33,123.43 L172.33,109.82 M167.83,123.43 L176.83,123.43 M167.83,109.82 L176.83,109.82
 		M202.60,147.32 L202.60,134.01 M198.10,147.32 L207.10,147.32 M198.10,134.01 L207.10,134.01 M263.14,186.41 L263.14,168.32
@@ -174,8 +174,18 @@
 	<use xlink:href='#gpPt1' transform='translate(384.21,266.43) scale(4.50)' color='rgb(  0, 158, 115)'/>
 	<use xlink:href='#gpPt1' transform='translate(475.02,326.99) scale(4.50)' color='rgb(  0, 158, 115)'/>
 	<use xlink:href='#gpPt1' transform='translate(535.55,364.65) scale(4.50)' color='rgb(  0, 158, 115)'/>
-	<use xlink:href='#gpPt1' transform='translate(527.76,395.40) scale(4.50)' color='rgb(  0, 158, 115)'/>
+	<use xlink:href='#gpPt1' transform='translate(527.76,377.40) scale(4.50)' color='rgb(  0, 158, 115)'/>
 </g>
+	</g>
+	<g id="gnuplot_plot_3" ><title>ThX radioactivity fit, prob C, add error</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(498.09,399.30)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >ThX radioactivity fit, prob C, add error</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M506.48,395.40 L549.04,395.40 M111.80,75.31 L142.07,94.83 L172.33,114.35 L202.60,133.87 L263.14,172.91 L353.94,231.47
+		L384.21,250.99 L475.02,309.55 L535.55,348.58  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

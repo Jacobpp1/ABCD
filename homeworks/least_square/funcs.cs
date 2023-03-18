@@ -15,8 +15,14 @@ public class funcs{
         matrix Q = A.copy();
         QRGSdecomp(Q, R);
         vector c = QRGSsolve(Q, R, b);
+
+        var temp1 = R.T*R;
+        var temp2 = new matrix(R.size2, R.size2);
+        QRGSdecomp(temp1, temp2);
+        var S = QRGSinverse(temp1, temp2);
+        
         //var pinvA = QRGSinverse(Q,R);
-        var S = new matrix(2,2);// pinvA*pinvA.T;
+        //var S = pinvA*pinvA.transpose();
         return (c,S);
     }
 
@@ -50,7 +56,7 @@ public class funcs{
 	public static matrix QRGSinverse(matrix Q, matrix R){
 		matrix outMat = new matrix(Q.size1, Q.size2);
 		for (int i=0; i<Q.size2; i++){
-			vector e = new vector(Q.size2);
+			vector e = new vector(Q.size1);
 			e[i] = 1;
 			outMat[i] = QRGSsolve(Q,R,e);
 		}
