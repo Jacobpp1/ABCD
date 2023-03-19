@@ -118,18 +118,24 @@ public class main{
         }
         File.WriteAllText("fixed_dr.data", toWrite);
         
-        // Plot eigenfunctions as function of r(?) for different dr.
-        for(int i=0; i<4; i++){
+        // Plot eigenfunctions
+        double[] drs = {0.1, 0.2, 0.3};
+        double[] rmaxs2 = {5.0, 10.0, 12.0};
+        for(int j=0; j<3; j++){
             toWrite = $"";
-            dr = 0.3;
-            rmax = rmaxs[i];
-            H = ham_creator(rmax, dr);
+            dr = drs[j];
+            rmax = rmaxs2[j];
+            H = ham_creator(rmax,dr);
             V = H.copy();
             V.set_identity();
             funcs.cyclic(H,V);
-            for(int j=0; j<50; j++)
-                toWrite += $"{(j+1)*0.2}\t{V[0][j]}";
-            File.WriteAllText("eigenfuns_test.data",toWrite);
+            //int N = (int)(rmax/dr);
+            int N = V[0].size;
+            for(int i=0; i<N; i++){
+                double r = dr*(i+1);
+                toWrite += $"{r}\t{V[0][i]/r}\n";
+            }
+            File.WriteAllText($"eigenfuns_dr{dr}_rmax{rmax}.data", toWrite);
         }
     }
 

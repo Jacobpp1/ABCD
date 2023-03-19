@@ -17,4 +17,4 @@ funcs.dll : funcs.cs
 	mcs -target:library -out:$@ $(filter %.cs,$^) -reference:matrix.dll
 
 clean : 
-	$(RM) *.exe *.svg
+	$(RM) *.exe *.svg *.data
