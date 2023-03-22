@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "A_test.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Testing linear spline"
+plot [0:] "A_test.data" using ($1):($2) with points lt 2
