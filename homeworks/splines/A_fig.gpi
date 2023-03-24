@@ -1,0 +1,13 @@
+set terminal svg
+set key bottom right
+set output "A_fig.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Linear spline, exercise A"
+plot [0:] "A_test.data" using ($1):($2) with lines lt 2 title "Linear Spline",\
+"A_orig.data" with points title "Datapoints",\
+"B_test.data" with lines title "Quadratic Spline"
