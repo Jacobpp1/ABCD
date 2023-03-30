@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "A.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Error Function"
+plot "A.data" using ($1):($2) with lines title "erf(x)"
