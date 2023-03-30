@@ -1,0 +1,26 @@
+set terminal gif animate delay 2
+set output '3_body.gif'
+
+filedata = '3_body.data'
+n = system(sprintf('cat %s | wc -l', filedata))
+
+set xrange [-2:2]
+set yrange [-2:2]
+
+#Set up the initial plot
+plot filedata using 2:3 every ::0::0 with points pt 7 lc rgb "black" notitle, \
+     filedata using 6:7 every ::0::0 with points pt 7 lc rgb "red" notitle, \
+     filedata using 10:11 every ::0::0 with points pt 7 lc rgb "blue" notitle, \
+     filedata using 2:3 every ::0::0 with lines lc rgb "black" notitle, \
+     filedata using 6:7 every ::0::0 with lines lc rgb "red" notitle, \
+     filedata using 10:11 every ::0::0 with lines lc rgb "blue" notitle
+
+#loop through the data and update the plot
+do for [i=1:n-1]{
+    plot filedata using 2:3 every ::i::i with points pt 7 ps 2 lc rgb "black" title "Mass 1", \
+         filedata using 6:7 every ::i::i with points pt 7 ps 2 lc rgb "red" title "Mass 2", \
+         filedata using 10:11 every ::i::i with points pt 7 ps 2 lc rgb "blue" title "Mass 3", \
+         filedata using 2:3 every ::0::i with lines lw 2 lc rgb "black" notitle, \
+         filedata using 6:7 every ::0::i with lines lw 2 lc rgb "red" notitle, \
+         filedata using 10:11 every ::0::i with lines lw 2 lc rgb "blue" notitle
+}

@@ -1,0 +1,13 @@
+set terminal svg
+set key bottom right
+set output "3_body.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "3-body problem"
+plot "3_body.data" using ($2):($3) with lines title "body 1",\
+"3_body.data" using ($6):($7) with lines title "body 2",\
+"3_body.data" using ($10):($11) with lines title "body 3"

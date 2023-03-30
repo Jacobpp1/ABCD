@@ -1,1 +1,4 @@
-0.01
+Final point according to A: 0.0177729834066188
+And according to B: 0.0188119185042482
+    0.0188       1.57 
+1691, 1591

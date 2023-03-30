@@ -1,0 +1,14 @@
+set terminal svg
+set key bottom right
+set output "B_test.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "B: Lotka-Volterra"
+plot [0:] "Lotka_A.data" using ($1):($2) with lines title "x with method A",\
+"Lotka_A.data" using ($1):($3) with lines title "y with method A",\
+"Lotka_B.data" using ($1):($2) with lines title "x with method B",\
+"Lotka_B.data" using ($1):($3) with lines title "y with method B"

@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "test_A.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Testing ODE solve, u''(x) = -u(x)"
+plot [0:] "test_harm_func.data" using ($1):($2) with lines lt 2 title "u(x)"
