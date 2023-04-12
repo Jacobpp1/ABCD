@@ -38,6 +38,8 @@
 | 4  | Splines       | 6 | 3 | - |  9  |  Possibly add more to B.
 ---------------------------------------
 | 5  | ODE           | 6 | 3 | 1 | 10  | 
+---------------------------------------
+| 6  | Integration   | 6 | 3 | - | 9   |  Need comparison with python routines in B.
  ======================================
-|                    total points: 48  |
+|                    total points: 57  |
  ======================================
