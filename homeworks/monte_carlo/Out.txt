@@ -1,0 +1,12 @@
+Integrating cos(x)*sin(y) for x=2..5, y=3..10
+0.283108406393923 ± 0.00323077687110363
+Integral should give 0.28195
+Integral given in exercise gives: 1.39221574929585 ± 0.00371357489998201, with 10000000 datapoints
+Should be 1.3932039296856768591842462603255
+
+Problem B
+Integrating cos(x)*sin(y) for x=2..5, y=3..10
+0.28195310059495 ± 7.57549364498455E-05
+Integral should give 0.28195
+Integrating e^(x)*Cos(y*sin(z)) from 0 to pi for x,y,z gives: 93.729950130857 ± 0.000236654779456558, with 10000000 datapoints
+Should be 93.7299
