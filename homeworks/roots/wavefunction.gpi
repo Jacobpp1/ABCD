@@ -1,0 +1,12 @@
+set terminal svg
+set key bottom right
+set output "wvfunc.svg"
+set xlabel "r"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Wavefunction for E0"
+f(x) = x*exp(-x)
+plot "wavefunction.data" using ($1):($2) with lines lt 2 title "numerical", f(x)

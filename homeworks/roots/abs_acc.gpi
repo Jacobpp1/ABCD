@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "abs_acc_conv.svg"
+set xlabel "abs_{acc}"
+set ylabel "(E_{num} - E_{theory})/E_{theory}"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "abs_{acc} convergence"
+plot "abs_acc_conv.data" using ($1):($2) with lines lt 2

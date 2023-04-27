@@ -19,19 +19,77 @@ class main{
         WriteLine($"Analytically we expect it to be at x=y=1");
 
         //B
+        WriteLine("\nProblem B");
+        double rmin = 0.001;
         double rmax = 8;
         double E = 2;
-        Func<double, vector, vector> diff_f = (r, ys) => new vector(ys[1], 2*ys[0]/r-2*E*ys[0]);
-        vector yas = new vector(2,4);
-        var (xs, ps) = funcs.driverA(diff_f, 0.01, yas, rmax);
+        double E_th = -0.5;
+        double acc = 0.01;
+        double eps = 0.01;
+        vector init_guess = new vector(-1.0);
+        Func<double, vector, vector> diff_f = (r, ys) => new vector(ys[1], -2*(1/r+E)*ys[0]);
+        vector yas = new vector(rmin-rmin*rmin, 1-2*rmin);
+        var (xs, ps) = funcs.driverA(diff_f, rmin, yas, rmax);
         WriteLine($"{xs[xs.size-1]}, {ps[ps.size-1][0]}, {ps[ps.size-1][1]}");
 
         Func<vector, vector> M_root = (x) => {
-            double E = 2;
-            Func<double, vector, vector> diff_f = (r, ys) => new vector(ys[1], 2*ys[0]/r-2*E*ys[0]);
-            vector yas = new vector(2,4);
-            (xs, ps) = funcs.driverA(diff_f, 0.01, yas, rmax);
-            
+            E = x[0];
+            (xs, ps) = funcs.driverA(diff_f, rmin, yas, rmax, acc = acc, eps = eps);
+            return new vector(ps[ps.size-1][0]);
+        };
+        sol = newton(M_root, init_guess);
+        WriteLine($"E min = {sol[0]}");
+        E = sol[0];
+        var (rs, yss) = funcs.driverA(diff_f, rmin, yas, rmax);
+        string toWrite = $"";
+        for (int i = 0; i<rs.size; i++){
+            //WriteLine($"{rs[i]}, {yss[i][0]}");
+            toWrite += $"{rs[i]}\t{yss[i][0]}\t{yss[i][1]}\n";
+        }
+        File.WriteAllText("wavefunction.data", toWrite);
+
+        // rmin convergence
+        toWrite = $"";
+        rmin = 0.0005;
+        for(int i=0; i<100; i++){
+            rmin += 0.0001;
+            E = newton(M_root, init_guess)[0];
+            toWrite += $"{rmin}\t{(E-E_th)/E_th}\n";
+        }
+        File.WriteAllText("rmin_conv.data", toWrite);
+        // rmax convergence
+        rmin = 0.001;
+        rmax = 6;
+        toWrite = $"";
+        for(int i=0; i<1000; i++){
+            rmax += 0.01;
+            E = newton(M_root, init_guess)[0];
+            toWrite += $"{rmax}\t{(E-E_th)/E_th}\n";
+        }
+        File.WriteAllText("rmax_conv.data", toWrite);
+        // abs_acc convergence
+        rmax = 8;
+        toWrite = $"";
+        double abs_acc = 0.001;
+        for(int i=0; i<1000; i++){
+            abs_acc += 0.001;
+            acc = abs_acc;
+            E = newton(M_root, init_guess)[0];
+            toWrite += $"{acc}\t{(E-E_th)/E_th}\n";
+        }
+        File.WriteAllText("abs_acc_conv.data", toWrite);
+        // eps_acc convergence
+        rmax = 8;
+        toWrite = $"";
+        double eps_acc = 0.001;
+        for(int i=0; i<100; i++){
+            eps_acc += 0.0005;
+            eps = eps_acc;
+            E = newton(M_root, init_guess)[0];
+            toWrite += $"{eps}\t{(E-E_th)/E_th}\n";
+        }
+        File.WriteAllText("eps_acc_conv.data", toWrite);
+
     }
 
     static vector newton(Func<vector,vector> f, vector x, double eps=1e-2){

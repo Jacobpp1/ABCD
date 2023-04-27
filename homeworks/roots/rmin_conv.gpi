@@ -1,0 +1,11 @@
+set terminal svg
+set key bottom right
+set output "rmin_conv.svg"
+set xlabel "rmin"
+set ylabel "(E_{num} - E_{theory})/E_{theory}"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "rmin convergence"
+plot "rmin_conv.data" using ($1):($2) with lines lt 2
