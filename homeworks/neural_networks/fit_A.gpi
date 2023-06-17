@@ -1,0 +1,12 @@
+set terminal svg
+set key top right
+set output "A_func.svg"
+set xlabel "E"
+set ylabel "Signal"
+set title "Higgs fit"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+plot [:] "A_func.data" using ($1):($2) with lines,\
+    "A_fit.data" with points
