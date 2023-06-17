@@ -23,7 +23,7 @@ class main{
         res = integrate(x => 4*Sqrt(1-x*x), 0, 1, delta);
         lims[0] = res-delta; lims[1] = res+delta;
         WriteLine("Integral of 4sqrt(1-x^2) from 0 to 1 = " + res
-        + $" should be 2±{delta}=[{lims[0]},{lims[1]}]" + $" which is: " + $"{lim_check(lims, res)}");
+        + $" should be pi±{delta}=[{lims[0]},{lims[1]}]" + $" which is: " + $"{lim_check(lims, res)}");
 
         counter = 0;
         double ord_counter_lnsqrt;
@@ -32,7 +32,7 @@ class main{
         ord_counter_lnsqrt = counter;
         lims[0] = res-delta; lims[1] = res+delta;
         WriteLine("Integral of ln(x)/sqrt(x) from 0 to 1 = " + res
-        + $" should be 2±{delta}=[{lims[0]},{lims[1]}]" + $" which is: " + $"{lim_check(lims, res)}");
+        + $" should be -4±{delta}=[{lims[0]},{lims[1]}]" + $" which is: " + $"{lim_check(lims, res)}");
 
         WriteLine($"Erf(2) = {erf(2)}");
         string toWrite = $"";
@@ -60,8 +60,8 @@ class main{
 
     static double integrate (Func<double,double> f, double a, double b,
     double delta=0.001, double eps=0.001, double f2=Double.NaN, double f3=Double.NaN){
-        if(a == Double.PositiveInfinity && b == NegativeInfinity)
-            integrate(t => f(t/(1-t*t)) * (1+t*t)/(1-t))
+        //if(a == Double.PositiveInfinity && b == NegativeInfinity)
+        //    integrate(t => f(t/(1-t*t)) * (1+t*t)/(1-t));
         counter++;
         double h=b-a;
         if(Double.IsNaN(f2)){ f2=f(a+2*h/6); f3=f(a+4*h/6); } // first call, no points to reuse

@@ -28,6 +28,8 @@ class main{
         for(int i=0; i<xs.size; i++) toWrite += $"{xs[i]}\t{network.response(xs[i], network.p)}\t{network.first_der(xs[i])}\t{network.second_der(xs[i])}\t{network.anti_der(xs[i])}\n";
         File.WriteAllText("B_fit.data", toWrite);
         
+        WriteLine("Problem C:");
+        
     }
 
     ///////////////////////// Minimization

@@ -1,8 +1,7 @@
 Integral of sqrt(x) from 0 to 1 = 0.666953909054655 should be 2/3±0.001=[0.665953909054655,0.667953909054655] which is: True
 Integral of 1/sqrt(x) from 0 to 1 = 1.99996150007805 should be 2±0.001=[1.99896150007805,2.00096150007805] which is: True
-Integral of 4sqrt(1-x^2) from 0 to 1 = 3.14183457802727 should be 2±0.001=[3.14083457802727,3.14283457802727] which is: True
-Evals: 4301
-Integral of ln(x)/sqrt(x) from 0 to 1 = -3.99991705899915 should be 2±0.001=[-4.00091705899915,-3.99891705899915] which is: True
+Integral of 4sqrt(1-x^2) from 0 to 1 = 3.14183457802727 should be pi±0.001=[3.14083457802727,3.14283457802727] which is: True
+Integral of ln(x)/sqrt(x) from 0 to 1 = -3.99991705899915 should be -4±0.001=[-4.00091705899915,-3.99891705899915] which is: True
 Erf(2) = 0.994900318508938
 Integral of 1/sqrt(x) from 0 to 1 using adaptive = 1.99999201046432 should be 2±0.001=[1.99899201046432,2.00099201046432] which is: True
 Evaluations using adaptive: 7. Evaluations without: 4285
