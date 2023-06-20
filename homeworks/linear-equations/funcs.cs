@@ -19,20 +19,34 @@ public static partial class funcs{
 			c[i]=(c[i]-sum)/U[i,i]; 
 			
 		}
-	}
-*/	
+	}*/
+	
 	public static vector QRGSsolve(matrix Q, matrix R, vector b){
 		vector x = new vector(R.size1);
 		
 		x = Q.transpose()*b;
 
-		for (int i=x.size-1; i>=0; i--){
+		for (int i = x.size-1; i>=0; i--){
 			double sum=0;
 			for (int k=i+1; k<x.size; k++) sum += R[i,k] * x[k];
 			x[i] = (x[i]-sum)/R[i,i];
 		}
-
+/*
+		for(int i = b.size-1; i=>0; i--){
+			double sum = 0;
+			for(int k = i+1; k<b.size; k++) sum += R[i,k]*b[k];
+			b[i] = (b[i]-sum)/R[i,i];
+		}*/
 		return x;
+	}
+
+	public static double QRGSdet(matrix A){
+		double det = 1;
+		matrix R = new matrix(A.size2, A.size2);
+		QRGSdecomp(A,R);
+		for(int i = 0; i<R.size2; i++)
+			det *= R[i,i];
+		return det;
 	}
 
 	public static matrix QRGSinverse(matrix Q, matrix R){

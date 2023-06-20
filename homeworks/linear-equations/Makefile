@@ -16,7 +16,7 @@ funcs.dll : funcs.cs
 
 out_times.data : main.exe
 	>$@
-	for N in $$(seq 10 10 200); do \
+	for N in $$(seq 10 10 500); do \
 		time --format "$$N %e" --output $@ --append \
 		mono $< -size:$$N 1>out 2>err ;\
 	done
