@@ -1,3 +1,29 @@
-Integral 0.12399301299825
-Summing method integral: 0.12399301299825
-Integral, quadratic: 0.121082079784083
+A)
+Linear splines
+Since it is linear spline, the integral should be the same as summing over the intervals
+Integrating sin(x)*x from 0 to 5
+Increase number of datapoints in code (array_size variable) for better precision of integration
+Integral of sin(x)*x, linear: -2.37435174020511
+Summing method integral: -2.37435174020511
+Figure can be seen in 'A_fig.svg', including integral
+
+B)
+Integral of sin(x)*x, quadratic: -2.36843871974281
+Figure can be seen in 'B_fig.svg', including evaluation, derivative, and integral
+
+Checking qspline against 3 functions
+For a constant function y=1, we expect no parameters, since y[i] is unchanging
+b0=0	c0=0
+b1=0	c1=0
+b2=0	c2=0
+b3=0	c3=0
+For a linear function y=x, we expect only linear terms added on, so c[i]=0 always
+b0=1	c0=0
+b1=1	c1=0
+b2=1	c2=0
+b3=1	c3=0
+For a constant function y=x^2, we expect both parameters to vary
+b0=1	c0=2
+b1=5	c1=0
+b2=5	c2=2
+b3=9	c3=0
