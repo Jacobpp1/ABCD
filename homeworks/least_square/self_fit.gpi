@@ -1,8 +1,8 @@
 set terminal svg
 set key bottom right
 set output "self_fit.svg"
-set xlabel "activity"
-set ylabel "time"
+set xlabel "time"
+set ylabel "activity"
 set tics out
 set xzeroaxis
 set yzeroaxis

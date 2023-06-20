@@ -15,31 +15,36 @@ public class main{
         matrix I = V.copy();
         
         //A1
+        WriteLine("A1 - testing timesJ with matrix before and after");
         A.print();
         funcs.timesJ(A, 2, 3, 21.4);
         A.print();
         
         //A2
+        WriteLine("\nA2 - testing Jtimes with matrix before and after");
         B.print();
         funcs.Jtimes(B,2,2,21.4);
         B.print();
         
         //A3
+        WriteLine("\nA3 - testing cyclic with matrix before and after");
         matrix C_copy = C.copy();
         C.print();
         funcs.cyclic(C,V);
         C.print();
+        WriteLine("\nNow showing V and then D=V^T*C*V matrices");
         V.print();
         matrix D = V.transpose()*C_copy*V;
         D.print();
+        WriteLine("\nTesting if matrices are the same, using approx method");
         WriteLine($"VT*A*V == D: {C.approx(D)}");
         WriteLine($"A == V*D*VT: {C_copy.approx(V*D*V.transpose())}");
         WriteLine($"VT*V == I: {I.approx(V.transpose()*V)}");
-        WriteLine($"V*VT == I: {I.approx(V*V.transpose())}");
-        WriteLine("V = ");
+        WriteLine($"V*VT == I: {I.approx(V*V.transpose())}\n");
+        /*WriteLine("V = ");
         V.print();
         WriteLine("D = ");
-        D.print();
+        D.print();*/
 
 
         //B Numerical

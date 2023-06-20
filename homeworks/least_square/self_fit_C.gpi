@@ -1,5 +1,5 @@
 set terminal svg
-set key bottom right
+set key top right
 set output "self_fit_C.svg"
 set xlabel "activity"
 set ylabel "time"
@@ -10,4 +10,5 @@ set samples 1200
 set title "ThX radioactivity, with own fit function"
 plot [0:] "self_fit_C_m.data" using ($1):($2) with lines lt 2 title "ThX radioactivity fit, prob C, subtract error", \
 "thx.data" using ($1):(log($2)):($3/$2) with errorbars lt 2 title "ThX radioactivity data, prob C",\
-"self_fit_C_p.data" using ($1):($2) with lines lt 2 title "ThX radioactivity fit, prob C, add error"
+"self_fit_C_p.data" using ($1):($2) with lines lt 2 title "ThX radioactivity fit, prob C, add error",\
+"self_fit.data" using ($1):($2) with lines lt 3 title "ThX radioactivity fit"

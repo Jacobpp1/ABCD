@@ -4,6 +4,7 @@ using static System.Math;
 using System.IO;
 class main{
     public static void Main(){
+		// Want to fit to a constant and a linear term
 		Func<double, double> f0 = (double x) => 1;
 		Func<double, double> f1 = (double x) => x;
 		Func<double, double>[] fitfuncs = {f0, f1};
@@ -30,6 +31,7 @@ class main{
 		double a = fit_vec[0];
 		double b = fit_vec[1];
 		WriteLine($"Fit parameters: ln(a)={fit_vec[0]:e2}, lambda={-fit_vec[1]:e2}");
+		WriteLine($"Fit can be seen in figure 'self_fit.svg'\n");
 
 		string toWrite = $"";
 		double t = 0;
@@ -45,7 +47,7 @@ class main{
 		(double err_lna, double err_lambda) = (Sqrt(fit_mat[0][0]), Sqrt(fit_mat[1][1]));
 		WriteLine($"Uncertainty of ln(a) is {err_lna} and uncertainty of lambda is {err_lambda}");
 		double err_T = Log(2)*err_lambda/(lambda*lambda);
-		WriteLine($"Thus the uncertainty of the half life is |dT/dlambda*deltalambda| = ln(2)/(lambda^2)*delta_lambda = {err_T:e2}");
+		WriteLine($"Thus the uncertainty of the half life is |dT/dlambda*deltalambda| = ln(2)/(lambda^2)*delta_lambda = {err_T:e2}d");
 		WriteLine($"This does not get the modern value within the uncertainty, [{T-err_T}, {T+err_T}]");
 
 		//C
@@ -59,6 +61,7 @@ class main{
 		}
 		File.WriteAllText("self_fit_C_p.data", toWrite_plus);
 		File.WriteAllText("self_fit_C_m.data", toWrite_minus);
+		WriteLine("\nC)\nFit with uncertainties in parameters (added or subtracted for both parameters) found in figure 'self_fit_C.svg'");
     }
 
 	static matrix rnd_matrix(int n, int m){
