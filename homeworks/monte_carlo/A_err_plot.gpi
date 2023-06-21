@@ -1,0 +1,14 @@
+set terminal svg
+set output "A_errs.svg"
+set xlabel "log10(n)"
+set ylabel "Absolute value of error"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+plot "A_errs.data" using (log10($1)):($3) with points title "Circle est error",\
+"A_errs.data" using (log10($1)):($4) with points title "Circle actual error",\
+"A_errs.data" using (log10($1)):($6) with lines title "2D Gauss est error",\
+"A_errs.data" using (log10($1)):($7) with lines title "2D Gauss actual error",\
+"A_errs.data" using (log10($1)):($9) with lines title "Oscillating est error",\
+"A_errs.data" using (log10($1)):($10) with lines title "Oscillating actual error"

@@ -5,64 +5,67 @@ using static System.Random;
 using System.IO;
 class main{
     public static void Main(){
-        vector A = new vector(2,3);  //Goes from x=2, y=3
-        vector B = new vector(5,10); //  to      x=5, y=5
-        int npoints = (int)1e7;
-        Func<vector,double> f1 = (x) => Cos(x[0]) * Sin(x[1]);
-        (double res1, double res2) = plainmc(f1, A, B,   npoints);
-        //(double resA1, double resA2) = plainmc(f, A, B, 100000000);
-        //(double resB1, double resB2) = plainmc(f, A, B, 100000000);
-        //(double resC1, double resC2) = plainmc(f, A, B, 100000000);
-        
-        WriteLine($"Integrating cos(x)*sin(y) for x={A[0]}..{B[0]}, y={A[1]}..{B[1]}");
-        WriteLine($"{res1} ± {res2}");
-        WriteLine($"Integral should give 0.28195");
-        //WriteLine($"{resA1}, {resA2}");
-        //WriteLine($"{resB1}, {resB2}");
-        //WriteLine($"{resC1}, {resC2}");
+        Func<vector,double> circ = x => {
+            double r = Sqrt(x[0]*x[0] + x[1]*x[1]);
+            if(r<=1) return 1;
+            else return 0;
+        };
+        vector circ_low = new vector(-1,-1);
+        vector circ_high = new vector(1,1);
+        WriteLine($"Integrating a unit circle with 1000000 points. Should give PI. Integral is: {plainmc(circ, circ_low, circ_high, 1000000).Item1}");
+        string toWrite = $"";
+        Func<vector, double> f1 = x => 0.1*Exp(-x[0]*x[0]/(2*4) - x[1]*x[1]/(2*1)); // 2-d Gaussian
+        vector gauss_low = new vector(-5, -5);
+        vector gauss_high = new vector(5, 5);
 
-        Func<vector,double> f2 = x => Pow(1/PI,3) / (1-Cos(x[0])*Cos(x[1])*Cos(x[2]));
-        A = new vector(0, 0, 0);
-        B = new vector(PI, PI, PI);
-        (double res, double err) = plainmc(f2, A, B, npoints);
-        Write("Integral given in exercise gives: ");
-        WriteLine($"{res} ± {err}, with {npoints} datapoints");
-        WriteLine("Should be 1.3932039296856768591842462603255\n");
+        Func<vector, double> f2 = x => Cos(x[0]-1)*Sin(x[1]); // cos and sin - Oscillating
+        vector osc_low = new vector(-1, 0);
+        vector osc_high = new vector(0.5, 1);
+        double circ_res = 0, circ_err = 0, gauss_res = 0, gauss_err = 0, osc_res = 0, osc_err = 0;
+        WriteLine(gauss_res);
+        for(int n=10; n<=1e8; n*=10){
+            (circ_res, circ_err) = plainmc(circ, circ_low, circ_high, n);
+            (gauss_res, gauss_err) = plainmc(f1, gauss_low, gauss_high, n);
+            (osc_res, osc_err) = plainmc(f2, osc_low, osc_high, n);
 
-        //B
-        A = new vector(2,3);  //Goes from x=2, y=3
-        B = new vector(5,10); //  to      x=5, y=5
-        (res1, res2) = quasimc(f1, A, B,   npoints);
-        WriteLine("Problem B");
-        WriteLine($"Integrating cos(x)*sin(y) for x={A[0]}..{B[0]}, y={A[1]}..{B[1]}");
-        WriteLine($"{res1} ± {res2}");
-        WriteLine($"Integral should give 0.28195");
-        //WriteLine($"{resA1}, {resA2}");
-        //WriteLine($"{resB1}, {resB2}");
-        //WriteLine($"{resC1}, {resC2}");
-
-        f2 = (x) => Exp(x[0])*Cos(x[1]*Sin(x[2]));
-        A = new vector(0, 0, 0);
-        B = new vector(PI, PI, PI);
-        (res, err) = quasimc(f2, A, B, npoints);
-        Write("Integrating e^(x)*Cos(y*sin(z)) from 0 to pi for x,y,z gives: ");
-        WriteLine($"{res} ± {err}, with {npoints} datapoints");
-        WriteLine("Should be 93.7299");
-
-        // Data for scaling errors
-        string plain_dat = $"";
-        string quasi_dat = $"";
-        double plain_err = 0;
-        double quasi_err = 0;
-        for(int n = 100; n<=1e7; n*=10){
-            (_, plain_err) = plainmc(f2,A,B,n);
-            (_, quasi_err) = quasimc(f2,A,B,n);
-            plain_dat += $"{n}\t{plain_err}\n";
-            quasi_dat += $"{n}\t{quasi_err}\n";
+            //WriteLine($"Using {n} points gives {ress}±{errr}");
+            toWrite += $"{n}\t{circ_res}\t{Abs(circ_err)}\t{Abs(PI-circ_res)}\t"; // Circle
+            toWrite += $"{gauss_res}\t{Abs(gauss_err)}\t{Abs(1.24103-gauss_res)}\t"; // 2d Gauss
+            toWrite += $"{osc_res}\t{Abs(osc_err)}\t{Abs(0.197611-osc_res)}\n"; // Oscillating
         }
-        File.WriteAllText("plain.data", plain_dat);
-        File.WriteAllText("quasi.data", quasi_dat);
-        
+        WriteLine(gauss_res);
+        WriteLine("A\nIntegrating three functions:");
+        WriteLine("Circle which is just the unit circle integrated from -1 to 1 for both x and y.");
+        WriteLine("A 2D-Gaussian which is 0.1*e^(-x^2/8 - y^2/2), integrated from -5 to 5 for both x and y");
+        WriteLine("And 'Oscillating' which is Cos(x-1)*Sin(y), integrated from -1 to 0.5 for x and 0 to 1 for y");
+        WriteLine("\nPlot indicating error reduction with number of points shown in 'A_err_plot.svg'\nSeems to generally follow 1/sqrt(n) as expected");
+        File.WriteAllText("A_errs.data", toWrite);
+        //Solving hard integral in A)
+        Func<vector,double> f3 = x => Pow(1/PI,3) / (1-Cos(x[0])*Cos(x[1])*Cos(x[2]));
+        vector a3 = new vector(0, 0, 0);
+        vector b3 = new vector(PI, PI, PI);
+        (double res3, double err3) = plainmc(f3, a3, b3, 10000000);
+        WriteLine($"\nSolving integral given in problem A with 1e7 points gives: {res3}±{err3}\nShould be 1.3932039296856768591842462603255");
+
+        // B (Compare error between plain and quasi)
+        // Calculating errors on same functions as before but using quasi
+        (double circ_qres, double circ_qerr) = quasimc(circ, circ_low, circ_high, (int)(1e8));
+        (double gauss_qres, double gauss_qerr) = quasimc(f1, gauss_low, gauss_high, (int)(1e8));
+        (double osc_qres, double osc_qerr) = quasimc(f2, osc_low, osc_high, (int)(1e8));
+        WriteLine("B\nComparing errors between plain and quasi MC, using 1e8 points:");
+        WriteLine($"For circle integral, plain error is {circ_err}, and quasi is {circ_qerr}");
+        WriteLine($"For Gaussian integral, plain error is {gauss_err}, and quasi is {gauss_qerr}");
+        WriteLine($"For oscillating integral, plain error is {osc_err}, and quasi is {osc_qerr}");
+        WriteLine("So the error seems to generally be a couple of orders of magnitude better using the quasi-random method");
+        WriteLine("\nTo investigate how the error scales with number of points, I now just integrate the circle.\n");
+        WriteLine("Results are shown in figure 'B_err_plot.svg'. Now with log10 of errors also.");
+        WriteLine("Seems to have the same slope for both methods, but more precise using quasi method.");
+        toWrite = $"";
+        for(int n=10; n<=1e8; n*=10){
+            (circ_qres, circ_qerr) = quasimc(circ, circ_low, circ_high, n);
+            toWrite += $"{n}\t{circ_qerr}\t{Abs(PI-circ_qres)}\n";
+        }
+        File.WriteAllText("B_errs.data", toWrite);
     }
 
     static (double,double) plainmc(Func<vector,double> f,vector a,vector b,int N){

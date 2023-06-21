@@ -1,12 +1,25 @@
-Integrating cos(x)*sin(y) for x=2..5, y=3..10
-0.283108406393923 ± 0.00323077687110363
-Integral should give 0.28195
-Integral given in exercise gives: 1.39221574929585 ± 0.00371357489998201, with 10000000 datapoints
-Should be 1.3932039296856768591842462603255
+Integrating a unit circle with 1000000 points. Should give PI. Integral is: 3.140076
+0
+1.24124954783578
+A
+Integrating three functions:
+Circle which is just the unit circle integrated from -1 to 1 for both x and y.
+A 2D-Gaussian which is 0.1*e^(-x^2/8 - y^2/2), integrated from -5 to 5 for both x and y
+And 'Oscillating' which is Cos(x-1)*Sin(y), integrated from -1 to 0.5 for x and 0 to 1 for y
 
-Problem B
-Integrating cos(x)*sin(y) for x=2..5, y=3..10
-0.28195310059495 ± 7.57549364498455E-05
-Integral should give 0.28195
-Integrating e^(x)*Cos(y*sin(z)) from 0 to pi for x,y,z gives: 93.729950130857 ± 0.000236654779456558, with 10000000 datapoints
-Should be 93.7299
+Plot indicating error reduction with number of points shown in 'A_err_plot.svg'
+Seems to generally follow 1/sqrt(n) as expected
+
+Solving integral given in problem A with 1e7 points gives: 1.39246128153987±0.00293033241800857
+Should be 1.3932039296856768591842462603255
+B
+Comparing errors between plain and quasi MC, using 1e8 points:
+For circle integral, plain error is 0.000164209169062838, and quasi is 2.00000000116773E-07
+For Gaussian integral, plain error is 0.000217735251842442, and quasi is 7.28213175094083E-07
+For oscillating integral, plain error is 3.22941223645749E-05, and quasi is 3.43723054296863E-07
+So the error seems to generally be a couple of orders of magnitude better using the quasi-random method
+
+To investigate how the error scales with number of points, I now just integrate the circle.
+
+Results are shown in figure 'B_err_plot.svg'. Now with log10 of errors also.
+Seems to have the same slope for both methods, but more precise using quasi method.

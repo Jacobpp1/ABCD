@@ -1,0 +1,12 @@
+set terminal svg
+set output "B_errs.svg"
+set xlabel "log10(n)"
+set ylabel "Log10 of absolute value of error of circle integral"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+plot "A_errs.data" using (log10($1)):(log10($3)) with points title "PLain est error",\
+"A_errs.data" using (log10($1)):(log10($4)) with points title "Plain actual error",\
+"B_errs.data" using (log10($1)):(log10($2)) with points title "Quasi est error",\
+"B_errs.data" using (log10($1)):(log10($3)) with points title "Quasi actual error"
