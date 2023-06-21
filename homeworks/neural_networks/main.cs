@@ -15,6 +15,8 @@ class main{
         string toWrite = $"";
         for(int i=0; i<xs.size; i++) toWrite += $"{xs[i]}\t{ys[i]}\n";
         File.WriteAllText("func.data", toWrite);
+        WriteLine("Saving figure to 'A_func.svg'. Function is cos(5x-1)*Exp(-x*x).\nNeural net activation function used is x*Exp(-x*x)");
+        WriteLine("Network uses 4 nodes.");
         
         toWrite = $"";
         ann network = new ann(4);
@@ -22,13 +24,14 @@ class main{
         for(int i=0; i<xs.size; i++) toWrite += $"{xs[i]}\t{network.response(xs[i], network.p)}\n";
         File.WriteAllText("A_fit.data", toWrite);
 
-        WriteLine("Problem B:");
-        WriteLine("Same problem but now including derivatives and anti-derivative");        
+        WriteLine("\nProblem B:");
+        WriteLine("Same problem but now including derivatives and anti-derivative");
+        WriteLine("Saved to 'B_func.svg'");
         toWrite = $"";
         for(int i=0; i<xs.size; i++) toWrite += $"{xs[i]}\t{network.response(xs[i], network.p)}\t{network.first_der(xs[i])}\t{network.second_der(xs[i])}\t{network.anti_der(xs[i])}\n";
         File.WriteAllText("B_fit.data", toWrite);
-        
-        WriteLine("Problem C:");
+        WriteLine($"Integrating cos(5x-1)*exp(-x*x) from 0 to 0.5 using ANN gives: {network.integral(0,0.5)} and should be ~ 0.3458");
+        //WriteLine("Problem C:");
         
     }
 
@@ -139,19 +142,20 @@ public class ann{
     public double first_der(double xs){
         Func<double,double> der_one = x => Exp(-x*x)*(1-2*x*x);
         double der = 0;
-        for(int j = 0; j<n; j++) der += der_one((xs-p[j*3+0])/p[j*3+1]) * p[j*3+2];
+        for(int j = 0; j<n; j++) der += der_one((xs-p[j*3+0])/p[j*3+1]) * p[j*3+2]/p[j*3+1]; // Need to also account for network parameters in Gaussian packet
         return der;
     }
     public double second_der(double xs){
         Func<double,double> der_two = x => 2*Exp(-x*x)*x*(2*x*x-3);
         double der = 0;
-        for(int j = 0; j<n; j++) der += der_two((xs-p[j*3+0])/p[j*3+1]) * p[j*3+2];
+        for(int j = 0; j<n; j++) der += der_two((xs-p[j*3+0])/p[j*3+1]) * p[j*3+2]/p[j*3+1]/p[j*3+1]; // Need to also account for network parameters in Gaussian packet
         return der;
     }
     public double anti_der(double xs){
         Func<double,double> der_anti = x => -0.5*Exp(-x*x);
         double der = 0;
-        for(int j = 0; j<n; j++) der += der_anti((xs-p[j*3+0])/p[j*3+1]) * p[j*3+2];
+        for(int j = 0; j<n; j++) der += der_anti((xs-p[j*3+0])/p[j*3+1]) * p[j*3+2]*p[j*3+1]; // Need to also account for network parameters in Gaussian packet
         return der;
     }
+    public double integral(double a, double b){ return anti_der(b)-anti_der(a);}
 }

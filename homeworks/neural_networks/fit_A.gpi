@@ -1,9 +1,9 @@
 set terminal svg
 set key top right
 set output "A_func.svg"
-set xlabel "E"
-set ylabel "Signal"
-set title "Higgs fit"
+set xlabel "x"
+set ylabel "y"
+set title "NN fit to cos(5x-1)*Exp(-x^2)"
 set tics out
 set xzeroaxis
 set yzeroaxis

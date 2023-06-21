@@ -1,3 +1,9 @@
 Problem A:
+Saving figure to 'A_func.svg'. Function is cos(5x-1)*Exp(-x*x).
+Neural net activation function used is x*Exp(-x*x)
+Network uses 4 nodes.
+
 Problem B:
 Same problem but now including derivatives and anti-derivative
+Saved to 'B_func.svg'
+Integrating cos(5x-1)*exp(-x*x) from 0 to 0.5 using ANN gives: 0.345832142664703 and should be ~0.3458
