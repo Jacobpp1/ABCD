@@ -15,6 +15,8 @@ class main{
         File.WriteAllText("test_harm_func.data", toWrite);
 
         //A4
+        WriteLine("A\nTesting driver against scipy routine is shown in figure 'A4_test.svg'");
+        WriteLine("'Test_A.svg' is for u''=-u");
         double b = 0.25;
         double c = 5.0;
         fs = (x,ys) => new vector(ys[1], -b*ys[1]-c*Sin(ys[0]));
@@ -27,7 +29,9 @@ class main{
 
         //B
         vector y = driverB(fs, 0, yas, 10);
-        WriteLine($"Final point according to A: {ps[ps.size-1][0]}\nAnd according to B: {y[0]}");
+        for(int i = 0; i<ps.size; i++) WriteLine(ps[i][0]);
+        WriteLine($"\nB\nFinal point of scipy function according to A: {ps[ps.size-1][0]}\nAnd according to B: {y[0]}");
+        WriteLine("y-vector from B is:");
         y.print();
         // Lotka-Volterra
         double a = 1.5; b = 1; c = 3; double d = 1;
@@ -37,15 +41,17 @@ class main{
         var (xsB, psB) = driverB2(fs, 0, yas, 15, xlist: new genlist<double>(), ylist: new genlist<vector>());
         string toWriteA = $"";
         string toWriteB = $"";
-        WriteLine($"{xsA.size}, {xsB.size}");
+        //WriteLine($"{xsA.size}, {xsB.size}");
         for(int i=0; i<xsA.size; i++)
             toWriteA += $"{xsA[i]}\t{psA[i][0]}\t{psA[i][1]}\n";
         for(int i=0; i<xsB.size; i++)
             toWriteB += $"{xsB[i]}\t{psB[i][0]}\t{psB[i][1]}\n";
         File.WriteAllText("Lotka_A.data", toWriteA);
         File.WriteAllText("Lotka_B.data", toWriteB);
+        WriteLine("Reproducing Lotka-Volterra system in figure 'B_test.svg'");
 
         //C
+        WriteLine("\nC\nSolution to gravitational 3-body problem found in '3_body.gif'");
         double G = 1;
         double[] ms = {1, 1, 1};
         // ys = (x1, y1, x1', y1', x2, y2, x2', y2', x3, y3, x3', y3')
