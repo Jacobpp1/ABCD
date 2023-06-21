@@ -15,8 +15,9 @@ class main{
         WriteLine($"For Rosenbrock: x0={r[0]}, y0={r[1]}; iterations = {n_r}");
         WriteLine($"For Himmelblau: x0={h[0]}, y0={h[1]}; iterations = {n_h}");
 
-        WriteLine("Problem B:");
+        WriteLine("\nProblem B:");
         Func<vector, double> bw = (x) => x[1]/(Pow(x[0]-x[2], 2) + x[3]*x[3]/4); // E = 0, A = 1, m = 2, gamma = 3 .
+        // Start reading data
         var energy = new List<double>();
         var signal = new List<double>();
         var error  = new List<double>();
@@ -30,6 +31,7 @@ class main{
             signal.Add(double.Parse(split_data[1]));
             error.Add(double.Parse(split_data[2]));
         }
+        // Stop reading data
 
         vector guesses = new vector(2,2,2);
         vector bw_opt_params = fit(bw, guesses, energy, signal, error, 1e-4);
@@ -44,6 +46,7 @@ class main{
             toWrite += $"{E}\t{bw_dat}\n";
         }
         File.WriteAllText("fit.data", toWrite);
+        WriteLine("Plotted fit in 'B_fit.svg'");
     }
 
     public static vector fit(Func<vector, double> f, vector guess, List<double> xs, List<double> ys, List<double> errs, double acc){

@@ -1,5 +1,7 @@
 Problem A:
 For Rosenbrock: x0=0.999371402115284, y0=0.998742549717807; iterations = 27899
 For Himmelblau: x0=-3.77931096287167, y0=-3.28318792302987; iterations = 9
+
 Problem B:
 Found parameters to be: A = 9.87616751345066, m = 125.972186974913, gamma = 2.08633183177905
+Plotted fit in 'B_fit.svg'
