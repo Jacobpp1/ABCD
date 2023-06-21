@@ -8,15 +8,22 @@ class main{
         Func<vector, vector> f = (x) => new vector(x[0]*x[0]+x[0]*2);
         vector y = new vector(2.0);
         vector sol = newton(f, y);
-        WriteLine(sol[0]);
+        WriteLine("A\nTesting Newton method on x^2 + 2x; starting at x=2");
+        WriteLine($"x0 = {sol[0]}");
+        f = (x) => new vector(x[0]*x[0] + x[1], 2*x[0]);
+        WriteLine("Testing Newton method on x^2 + y; starting at x=y=2");
+        y = new vector(2,2);
+        sol = newton(f, y);
+        WriteLine($"x0 = {sol[0]}");
 
         // Rosenbrock 
-        Func<vector,double> ros = (x) => (1-x[0])*(1*x[0]) + 100*(x[1]-x[0]*x[0])*(x[1]-x[0]*x[0]);
+        Func<vector,double> ros = (x) => (1-x[0])*(1-x[0]) + 100*(x[1]-x[0]*x[0])*(x[1]-x[0]*x[0]);
         Func<vector, vector> grads = (x) => new vector(2*(200*Pow(x[0],3)-200*x[0]*x[1]+x[0]-1),   200*(x[1]-x[0]*x[0]));
         y = new vector(0, 0);
         sol = newton(grads, y);
+        WriteLine("Testing Rosenbrock");
         WriteLine($"Starting from (x0,y0) = (-1,1) gives (x,y) = ({sol[0]}, {sol[1]}) and ros(x,y) = {ros(sol)}");
-        WriteLine($"Analytically we expect it to be at x=y=1");
+        WriteLine($"Analytically we expect it to be at x=y=1; this would give: {ros(new vector(1,1))}, as we expect.");
 
         //B
         WriteLine("\nProblem B");
@@ -30,7 +37,7 @@ class main{
         Func<double, vector, vector> diff_f = (r, ys) => new vector(ys[1], -2*(1/r+E)*ys[0]);
         vector yas = new vector(rmin-rmin*rmin, 1-2*rmin);
         var (xs, ps) = funcs.driverA(diff_f, rmin, yas, rmax);
-        WriteLine($"{xs[xs.size-1]}, {ps[ps.size-1][0]}, {ps[ps.size-1][1]}");
+        //WriteLine($"{xs[xs.size-1]}, {ps[ps.size-1][0]}, {ps[ps.size-1][1]}");
 
         Func<vector, vector> M_root = (x) => {
             E = x[0];
@@ -42,16 +49,17 @@ class main{
         E = sol[0];
         var (rs, yss) = funcs.driverA(diff_f, rmin, yas, rmax);
         string toWrite = $"";
-        for (int i = 0; i<rs.size; i++){
-            //WriteLine($"{rs[i]}, {yss[i][0]}");
+        for (int i = 0; i<rs.size; i++)
             toWrite += $"{rs[i]}\t{yss[i][0]}\t{yss[i][1]}\n";
-        }
+        
         File.WriteAllText("wavefunction.data", toWrite);
+        WriteLine("Wavefunction plotted against theoretical. Only divergence towards the end.");
 
         // rmin convergence
         toWrite = $"";
         rmin = 0.0005;
-        for(int i=0; i<100; i++){
+        rmax = 8;
+        for(int i=0; i<1000; i++){
             rmin += 0.0001;
             E = newton(M_root, init_guess)[0];
             toWrite += $"{rmin}\t{(E-E_th)/E_th}\n";
@@ -70,9 +78,9 @@ class main{
         // abs_acc convergence
         rmax = 8;
         toWrite = $"";
-        double abs_acc = 0.001;
+        double abs_acc = 0.00001;
         for(int i=0; i<1000; i++){
-            abs_acc += 0.001;
+            abs_acc += 0.00001;
             acc = abs_acc;
             E = newton(M_root, init_guess)[0];
             toWrite += $"{acc}\t{(E-E_th)/E_th}\n";
@@ -81,14 +89,15 @@ class main{
         // eps_acc convergence
         rmax = 8;
         toWrite = $"";
-        double eps_acc = 0.001;
-        for(int i=0; i<100; i++){
-            eps_acc += 0.0005;
+        double eps_acc = 0.00001;
+        for(int i=0; i<1000; i++){
+            eps_acc += 0.00001;
             eps = eps_acc;
             E = newton(M_root, init_guess)[0];
             toWrite += $"{eps}\t{(E-E_th)/E_th}\n";
         }
         File.WriteAllText("eps_acc_conv.data", toWrite);
+        WriteLine("\nConvergence plots can be found in corresponding .svg file.");
 
     }
 
@@ -98,6 +107,7 @@ class main{
         double delta_x;
         vector x1;
         double lambda;
+        if(n!=m) WriteLine("Function vector and variable vector must be same size");
         matrix J = new matrix(n,m);
         while(f(x).norm() > eps){
             for(int i = 0; i<n; i++){

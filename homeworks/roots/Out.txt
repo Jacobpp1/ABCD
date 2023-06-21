@@ -1,7 +1,14 @@
-3.05180686113651E-05
-Starting from (x0,y0) = (-1,1) gives (x,y) = (0.997907644004805, 0.995792446241983) and ros(x,y) = 0.00208805213290699
-Analytically we expect it to be at x=y=1
+A
+Testing Newton method on x^2 + 2x; starting at x=2
+x0 = 3.05180686113651E-05
+Testing Newton method on x^2 + y; starting at x=y=2
+x0 = 0
+Testing Rosenbrock
+Starting from (x0,y0) = (-1,1) gives (x,y) = (0.997907644004805, 0.995792446241983) and ros(x,y) = 4.45204493305238E-06
+Analytically we expect it to be at x=y=1; this would give: 0, as we expect.
 
 Problem B
-8, -0.205530101214111, 0.365681150728928
 E min = -0.500076526451257
+Wavefunction plotted against theoretical. Only divergence towards the end.
+
+Convergence plots can be found in corresponding .svg file.
