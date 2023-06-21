@@ -50,5 +50,13 @@ A == V*D*VT: True
 VT*V == I: True
 V*VT == I: True
 
-rmax = 10, dr = 0.3
 B:
+rmax = 10, dr = 0.3
+Plot varying dr between 0.1 and 4 and with rmax fixed at 10 found in 'rmax_fixed.svg'
+Plot varying rmax between 0.8 and 5 and with dr fixed at 0.3 found in 'dr_fixed.svg'
+Seeing if summing V_ik^2 gives unity
+1
+1
+0.999999999999999
+Radial wavefunctions (r*R)^2 plotted in figure 'eigenfuns.svg'. Analytical functions found at 
+https://quantummechanics.ucsd.edu/ph130a/130_notes/node233.html and were multiplied by r and all squared.

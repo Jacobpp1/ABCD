@@ -63,27 +63,14 @@ public class main{
                 dr = double.Parse(words[1]);
 		}
         
+        WriteLine("B:");
         WriteLine($"rmax = {rmax}, dr = {dr}");
-        /*
-        int npoints = (int)(rmax/dr) - 1;
-        vector r = new vector(npoints);
-        for(int i=0;i<npoints;i++) r[i]=dr*(i+1);
-        matrix H = new matrix(npoints,npoints);
-        for(int i=0;i<npoints-1;i++){
-            H[i,i]  =-2;
-            H[i,i+1]= 1;
-            H[i+1,i]= 1;
-        }
-        H[npoints-1,npoints-1]=-2;
-        //H.scale(-0.5/dr/dr);
-        H *= -0.5/dr/dr;
-        for(int i=0;i<npoints;i++) H[i,i]+=-1/r[i];
-        */
+        
         matrix H = ham_creator(rmax, dr);
         matrix VB = H.copy();
         VB.set_identity();
         matrix DB = H.copy();
-        WriteLine("B:");
+
         funcs.cyclic(DB,VB);
         /*WriteLine("Energies:");
         for( int i=0; i<H.size2;i++) WriteLine(DB[i,i]);
@@ -92,8 +79,10 @@ public class main{
         */
 
         //WriteLine("dr from 0.3 to 4 in intervals of 0.1:");
+
+        // Fixed rmax
         string toWrite = $"";
-        for(double i=0.3; i<=4; i+=0.1){
+        for(double i=0.1; i<=4; i+=0.1){
             dr = i;
             H = ham_creator(rmax, dr);
             V = H.copy();
@@ -103,14 +92,15 @@ public class main{
             toWrite += $"{dr}\t{H[0,0]}\n";
         }
         File.WriteAllText("fixed_rmax.data", toWrite);
+        WriteLine($"Plot varying dr between 0.1 and 4 and with rmax fixed at {rmax} found in 'rmax_fixed.svg'");
 
-        // Fixed rmax
+        // Fixed dr
         dr = 0.3;
-        double[] rmaxs = {0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1, 4.4, 4.7, 5};
+        //double[] rmaxs = {0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1, 4.4, 4.7, 5};
         //WriteLine("rmax from 0.8 to 5 in intervals of 0.3:");
         toWrite = $"";
         int len_vec = (int)(5.0/0.8);
-        var eigfuns = new vector[len_vec];
+        //var eigfuns = new vector[len_vec];
         for(double i=0.8; i<=5; i+=0.3){
             rmax = i;
             H = ham_creator(rmax, dr);
@@ -122,26 +112,35 @@ public class main{
             //eigfuns.Add(V[0]);
         }
         File.WriteAllText("fixed_dr.data", toWrite);
+        WriteLine($"Plot varying rmax between 0.8 and 5 and with dr fixed at {dr} found in 'dr_fixed.svg'");
         
         // Plot eigenfunctions
-        double[] drs = {0.1, 0.2, 0.3};
-        double[] rmaxs2 = {5.0, 10.0, 12.0};
-        for(int j=0; j<3; j++){
+        Func<double, double>[] fs = {x => 2*Exp(-x), x => 2/Pow(2,3.0/2)*(1-x/2)*Exp(-x/2), x => 2/Pow(3,3.0/2)*(1-2*x/3+2*x*x/27)*Exp(-x/3)};
+        dr = 0.1;
+        rmax = 25;
+        H = ham_creator(rmax,dr);
+        V = H.copy();
+        V.set_identity();
+        funcs.cyclic(H,V);
+        int N = V[0].size;
+        double num_wf;
+        double anal_wf;
+        WriteLine("Seeing if summing V_ik^2 gives unity");
+        for(int k = 0; k<3; k++){
             toWrite = $"";
-            dr = drs[j];
-            rmax = rmaxs2[j];
-            H = ham_creator(rmax,dr);
-            V = H.copy();
-            V.set_identity();
-            funcs.cyclic(H,V);
-            //int N = (int)(rmax/dr);
-            int N = V[0].size;
+            double sum_check = 0;
             for(int i=0; i<N; i++){
                 double r = dr*(i+1);
-                toWrite += $"{r}\t{V[0][i]/r}\n";
+                sum_check += V[k][i]*V[k][i];
+                num_wf = Pow(V[k][i]/Sqrt(dr),2);
+                anal_wf = Pow(fs[k](r)*r, 2);
+                toWrite += $"{r}\t{num_wf}\t{anal_wf}\n";
             }
-            File.WriteAllText($"eigenfuns_dr{dr}_rmax{rmax}.data", toWrite);
+            File.WriteAllText($"eigenfuns_n{k+1}.data", toWrite);
+            WriteLine(sum_check);
         }
+        WriteLine("Radial wavefunctions (r*R)^2 plotted in figure 'eigenfuns.svg'. Analytical functions found at ");
+        WriteLine("https://quantummechanics.ucsd.edu/ph130a/130_notes/node233.html and were multiplied by r and all squared.");
     }
 
     static matrix ham_creator(double rmax, double dr){

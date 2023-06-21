@@ -1,15 +1,15 @@
 set terminal svg
-set key bottom right
 set output "eigenfuns.svg"
 set xlabel "r"
-set ylabel "V0/r"
+set ylabel "|r*R|^2"
 set tics out
 set xzeroaxis
 set yzeroaxis
 set samples 800
 set title "eigenfunctions"
-f(x) = a*exp(b*x)
-fit f(x) "eigenfuns_dr0.1_rmax5.data" using ($1):($2+0.05) via a,b
-plot [0:] "eigenfuns_dr0.1_rmax5.data" using ($1):($2) with lines lt 1 title "dr 0.1, rmax 5",\
- "eigenfuns_dr0.2_rmax10.data" using ($1):($2) with lines lt 2 title "dr 0.2, rmax 10",\
-  "eigenfuns_dr0.3_rmax12.data" using ($1):($2) with lines lt 3 title "dr 0.3, rmax 12", f(x)
+plot "eigenfuns_n1.data" using ($1):($2) with lines lt 1 title "n=1 numerical",\
+     "eigenfuns_n2.data" using ($1):($2) with lines lt 2 title "n=2 numerical",\
+     "eigenfuns_n3.data" using ($1):($2) with lines lt 3 title "n=3 numerical",\
+     "eigenfuns_n1.data" using ($1):($3) with lines lt 4 title "n=1 analytical",\
+     "eigenfuns_n2.data" using ($1):($3) with lines lt 5 title "n=2 analytical",\
+     "eigenfuns_n3.data" using ($1):($3) with lines lt 6 title "n=3 analytical"
