@@ -1,0 +1,11 @@
+set terminal svg
+set output "A_erf_difference.svg"
+set xlabel "x"
+set ylabel "y"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Error Function - difference"
+plot "erf_compare.data" using ($1):($2) title "Abs(tabulated - integrated version)",\
+"erf_compare.data" using ($1):($3) title "Abs(tabulated - approximated version)"

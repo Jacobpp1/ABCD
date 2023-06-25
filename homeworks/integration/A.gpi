@@ -8,4 +8,5 @@ set xzeroaxis
 set yzeroaxis
 set samples 1200
 set title "Error Function"
-plot "A.data" using ($1):($2) with lines title "erf(x)"
+plot "A.data" using ($1):($2) with lines title "Using integrator", erf(x),\
+"error.data" title "From plots exercise" with lines

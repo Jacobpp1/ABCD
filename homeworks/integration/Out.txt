@@ -1,9 +1,24 @@
+Problem A:
 Integral of sqrt(x) from 0 to 1 = 0.666953909054655 should be 2/3±0.001=[0.665953909054655,0.667953909054655] which is: True
 Integral of 1/sqrt(x) from 0 to 1 = 1.99996150007805 should be 2±0.001=[1.99896150007805,2.00096150007805] which is: True
 Integral of 4sqrt(1-x^2) from 0 to 1 = 3.14183457802727 should be pi±0.001=[3.14083457802727,3.14283457802727] which is: True
 Integral of ln(x)/sqrt(x) from 0 to 1 = -3.99991705899915 should be -4±0.001=[-4.00091705899915,-3.99891705899915] which is: True
-Erf(2) = 0.994900318508938
-Integral of 1/sqrt(x) from 0 to 1 using adaptive = 1.99999201046432 should be 2±0.001=[1.99899201046432,2.00099201046432] which is: True
-Evaluations using adaptive: 7. Evaluations without: 4285
-Integral of ln(x)/sqrt(x) from 0 to 1 using adaptive = -3.99987385646141 should be -4±0.001=[-4.00087385646141,-3.99887385646141] which is: True
-Evaluations using adaptive: 47. Evaluations without: 4301
+
+Calculating errorfunction using integration method gives: Erf(2) = 0.995322288126349
+Expect it to be around 0.995322265 (according to Wolfram Alpha & Wikipedia)
+Plotting error function using integration method, tabulated values, and 'plots' exercise in figure 'A.svg'. They all seem to overlap.
+In the figure 'A_erf_difference.svg' we see that the integration method generally has lower error than the approximated method.
+The data is made with absolute and relative error of 1e-7 for both.
+
+Problem B:
+Integral of 1/sqrt(x) from 0 to 1 using transformation = 1.99999999999762 should be 2±0.001=[1.99899999999762,2.00099999999762] which is: True
+Absolute and relative error was 1.49E-07 here.
+Evaluations using transformation: 399. Evaluations without: 4285 - even using lower accuracy
+Python solves this with absolute and relative error as 1.49e-8 using 231 evaluations
+
+Integral of ln(x)/sqrt(x) from 0 to 1 using transformation = -3.99999813339603 should be -4±0.0001=[-4.00099813339603,-3.99989813339603] which is: True
+Absolute and relative error was 0.0001 here. Could not run with better precision :(
+Evaluations using transformation: 135. Evaluations without: 4301 - even using lower accuracy
+Python solves this with absolute and relative error as 1.49e-8 using 315 evaluations
+
+Python method seems to be more efficient. Reason for more evaluations of second function is the precision limit with my implementation.
