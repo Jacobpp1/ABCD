@@ -1,0 +1,20 @@
+set terminal svg
+set key at 100, 170
+set output "iterations.svg"
+set xlabel "Number of new points thrown, N"
+set ylabel "Number of iterations"
+set y2label "Number of function calls"
+set y2tics 1000 
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Number of iterations, solving for same error with different methods of error calculation"
+plot "optimum_N_var.data" using ($1):($4) with lines title "Iterations without CC (left axis)",\
+"optimum_N_CC.data" using ($1):($4) with lines title "Iterations with CC (left axis)",\
+"optimum_N_var.data" using ($1):($2) with lines title "Function calls without CC (right axis)" axes x1y2,\
+"optimum_N_CC.data" using ($1):($2) with lines title "Function calls with CC (right axis)" axes x1y2,\
+#"optimum_N_ave.data" using ($1):($4) with lines title "Average error",\
+#"optimum_N_ave.data" using ($1):($2) with lines title "Average error" axes x1y2,\
+#"optimum_N_CC_ave.data" using ($1):($4) with lines title "CC transform (average)",\
+#"optimum_N_CC_ave.data" using ($1):($2) with lines title "CC transform (average)" axes x1y2

@@ -1,0 +1,14 @@
+set terminal svg
+set key bottom right
+set output "func_calls.svg"
+set xlabel "Number of new points thrown, N"
+set ylabel "Number of function calls"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Number of function calls versus number of new points thrown, with different methods of integration"
+plot "optimum_N_var.data" using ($1):($2) with lines title "Method using variance as error",\
+"optimum_N_ave.data" using ($1):($2) with lines title "Method using difference in average as error",\
+"optimum_N_CC.data" using ($1):($2) with lines title "Method using variance as error and CC transform",\
+"optimum_N_CC_ave.data" using ($1):($2) with lines title "Method using difference in average as error and CC transform",\
