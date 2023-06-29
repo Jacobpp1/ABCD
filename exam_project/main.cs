@@ -21,9 +21,9 @@ class main{
         double test = integrate(f1, 0, 5);
         WriteLine($"Theoretically we expect to get x*x + 1/3*x*x*x, evaluated gives: 25+1/3*125={25+1.0/3*125}. Integration method gives: {test}");
         test = integrate(f1, 0, 5, 1e-5, 1e-5, 40);
-        WriteLine($"Integrating with delta and epsilon 1e-5 and N=40 instead gives {test}, which is an improvement\n");
+        WriteLine($"Integrating with delta and epsilon 1e-5 and N=40 instead gives {test}, which is an improvement as expected.\n");
 
-        WriteLine($"Now integrating 1/sqrt(x) from 0 to 1. But this diverges so I use Clenshaw-Curtis transformation instead");
+        WriteLine($"Now integrating 1/sqrt(x) from 0 to 1. But this diverges, giving issues with my method, so I use Clenshaw-Curtis transformation instead");
         f1 = (x) => 1.0/Sqrt(x);
         double test2 = integrate_CCtransform(f1, 0, 1);
         WriteLine($"We expect this to give 2. With delta and eps = 1e-3 and N=10 again we get: {test2}");
@@ -52,6 +52,9 @@ class main{
         WriteLine("");
         WriteLine("Surprisingly, the method of error calculation using the difference in mean leads to large variation in the integral value,");
         WriteLine("and therefore this is not considered a viable method\n");
+        WriteLine("Additionally, to assure the integral is calculated correctly, figures 'N_vary_varerr.svg' and 'N_vary_meanerr.svg' show the calculated integral at various N");
+        WriteLine("The tolerance band is also included with the actual integral value as actual*(1±eps) ± delta.");
+        WriteLine("These are calculated using error with variance or difference in mean respectively. We see that the mean difference leads to very large variance in integral value.\n");
 
 
         // Predefined node comparison:
@@ -60,8 +63,8 @@ class main{
         f1 = x => 1.0/Sqrt(x);
         double test4 = hw_CC_integrate(f1, 0, 1);
         WriteLine($"Integrating 1/sqrt(x) from 0 to 1 with CC transformation. Cannot solve diverging integral without the transformation.");
-        WriteLine("Should give 2. Integration methods give Random nodes: {test2}; Predefined nodes: {test4}");
-        WriteLine($"Doing it 100 times and taking average difference, Abs(integrate(f) - 2)");
+        WriteLine($"Should give 2. Integration methods give: Random nodes: {test2}; Predefined nodes: {test4}");
+        WriteLine($"Doing it 100 times and taking average difference, Abs(integrate(f, 0, 1) - 2)");
         double diff_rand = 0;
         double diff_pred = Abs(test4-2);
         for(int i = 0; i<100; i++) diff_rand += Abs(integrate_CCtransform(f1,0,1)-2);
@@ -94,12 +97,11 @@ class main{
         double res_pred = hw_CC_integrate(f1_count, 1e-6, 1);
         N_calls_pred = N_calls;
         WriteLine("\nNow with f(x)=1/sqrt(x), integrating from 1e-6 to 1.");
-        WriteLine("Integration limit changed to allow the method without CC transform to work");
+        WriteLine("Integration limit changed to allow the method without CC transform to work as well,");
         WriteLine("so we can see if the CC transformation decreases function calls for divergent functions.");
         WriteLine($"Number of function calls: Random nodes: {N_calls_rand}; Random nodes (without CC transform): {N_calls_noCC}; Predefined nodes: {N_calls_pred}");
         WriteLine("Still better to use predefined nodes, but the CC transform has a significant effect.");
         WriteLine("So for divergent functions, the CC transform has fewer function calls, while it makes more function calls for simpler functions (see 'func_calls.svg')");
-        //WriteLine($"Random nodes gives: {res_rand}; Predefined nodes gives: {res_pred}. Actual = 1.998");
     }
 
     static double integrate (Func<double,double> f, double a, double b, double delta=1e-3, double eps=1e-3,
@@ -132,6 +134,7 @@ class main{
             }
         }
         //WriteLine(bad_N);
+        double current_mean = sum/N;
         sum += old_sum; sum2 += old_sum2;
 
         int N_total = N + old_n - bad_N;
@@ -141,7 +144,7 @@ class main{
         double integral = h*mean;                       // Equation 2, MC note
         double sigma = Sqrt(mean2 - mean*mean);         // Equation 4, MC note
         double error = h*sigma/Sqrt(N_total);           // Equation 3, MC note
-        if(ave) error = h*Abs(mean-old_mean);           // From exam problem
+        if(ave) error = h*Abs(current_mean-old_mean);           // From exam problem
         double tol = delta + eps*Abs(integral);         // Equation 47, integration note
         //WriteLine($"Error: {error}; tolerance: {tol}");
         

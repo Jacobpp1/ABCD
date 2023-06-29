@@ -1,11 +1,11 @@
 ------------------- Testing implementation of integration method -------------------
 Testing integration method on f(x)=2x+x*x from 0 to 5. Delta and epsilon set to 1e-3. N=10
-Theoretically we expect to get x*x + 1/3*x*x*x, evaluated gives: 25+1/3*125=66.6666666666667. Integration method gives: 66.6611819048526
-Integrating with delta and epsilon 1e-5 and N=40 instead gives 66.6666546733002, which is an improvement
+Theoretically we expect to get x*x + 1/3*x*x*x, evaluated gives: 25+1/3*125=66.6666666666667. Integration method gives: 66.6625202884275
+Integrating with delta and epsilon 1e-5 and N=40 instead gives 66.6666752139012, which is an improvement as expected.
 
-Now integrating 1/sqrt(x) from 0 to 1. But this diverges so I use Clenshaw-Curtis transformation instead
-We expect this to give 2. With delta and eps = 1e-3 and N=10 again we get: 1.99846876804727
-Testing integration on sin(x)exp(-x*x+x)*x from 0 to pi, delta and eps = 1e-7 and N=40 gives 1.06862189174693
+Now integrating 1/sqrt(x) from 0 to 1. But this diverges, giving issues with my method, so I use Clenshaw-Curtis transformation instead
+We expect this to give 2. With delta and eps = 1e-3 and N=10 again we get: 2.00068230455516
+Testing integration on sin(x)exp(-x*x+x)*x from 0 to pi, delta and eps = 1e-7 and N=40 gives 1.0686218435938
 Should give 1.068621813 according to WolframAlpha. So this is pretty good.
 
 ------------- Investigating dependence on number of new points thrown / optimum N -----------------
@@ -22,19 +22,23 @@ The difference is not significant, though, and thus N=10 has been chosen for oth
 Surprisingly, the method of error calculation using the difference in mean leads to large variation in the integral value,
 and therefore this is not considered a viable method
 
+Additionally, to assure the integral is calculated correctly, figures 'N_vary_varerr.svg' and 'N_vary_meanerr.svg' show the calculated integral at various N
+The tolerance band is also included with the actual integral value as actual*(1±eps) ± delta.
+These are calculated using error with variance or difference in mean respectively. We see that the mean difference leads to very large variance in integral value.
+
 ------------- Comparison with method from integration homework, using predefined nodes -----------------
 Integrating 1/sqrt(x) from 0 to 1 with CC transformation. Cannot solve diverging integral without the transformation.
-Should give 2. Integration methods give Random nodes: {test2}; Predefined nodes: {test4}
-Doing it 100 times and taking average difference, Abs(integrate(f) - 2)
-Random nodes: 0.000957560653539613; Predefined nodes: 7.98953567748839E-06
+Should give 2. Integration methods give: Random nodes: 2.00068230455516; Predefined nodes: 1.99999201046432
+Doing it 100 times and taking average difference, Abs(integrate(f, 0, 1) - 2)
+Random nodes: 0.000877691160860492; Predefined nodes: 7.98953567748839E-06
 So precision isn't increased with random nodes method. Maybe number of function calls is.
 
 Average number of function calls: Random nodes: 855.4; Predefined nodes: 16
 So we also see that the efficiency in number of function calls is much better for the predefined nodes method.
 
 Now with f(x)=1/sqrt(x), integrating from 1e-6 to 1.
-Integration limit changed to allow the method without CC transform to work
+Integration limit changed to allow the method without CC transform to work as well,
 so we can see if the CC transformation decreases function calls for divergent functions.
-Number of function calls: Random nodes: 1050; Random nodes (without CC transform): 3550; Predefined nodes: 16
+Number of function calls: Random nodes: 830; Random nodes (without CC transform): 3570; Predefined nodes: 16
 Still better to use predefined nodes, but the CC transform has a significant effect.
 So for divergent functions, the CC transform has fewer function calls, while it makes more function calls for simpler functions (see 'func_calls.svg')

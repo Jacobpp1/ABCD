@@ -7,7 +7,7 @@ set xzeroaxis
 set yzeroaxis
 set samples 1200
 set title "Number of function calls divided by number of new points using different methods"
-plot "optimum_N_var.data" using ($1):($3) with lines title "Method using variance as error",\
+plot "optimum_N_var.data" using ($1):($3) with lines title "Method using variance for error",\
 "optimum_N_ave.data" using ($1):($3) with lines title "Method using difference in average as error",\
-"optimum_N_CC.data" using ($1):($3) with lines title "Method using variance as error and CC transform",\
+"optimum_N_CC.data" using ($1):($3) with lines title "Method using variance for error and CC transform",\
 "optimum_N_CC_ave.data" using ($1):($3) with lines title "Method using difference in average as error and CC transform"

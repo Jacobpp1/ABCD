@@ -1,0 +1,13 @@
+set terminal svg
+set output "vary_N_varerr.svg"
+set xlabel "Number of new points thrown, N"
+set ylabel "Integration result"
+set tics out
+set xzeroaxis
+set yzeroaxis
+set samples 1200
+set title "Integration of cos(x-1)sin(x) from -PI to PI with different methods"
+plot [:][2.63:2.66]"vary_N_var.data" using ($1):($2) with lines title "Method using variance for error",\
+2.64355906*(1+0.001) + 0.001 title "Actual value + error",\
+2.64355906*(1-0.001) - 0.001 title "Actual value - error",\
+"vary_N_CC.data" using ($1):($2) with lines title "Method using variance for error and CC transform"
