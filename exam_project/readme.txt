@@ -21,6 +21,14 @@ B is investigating the number of function calls depending on the number of new p
 C is comparing with the homework implementation.
 Adding to both B and C, the Clenshaw-Curtis transformation was implemented and tested in both cases.
 
+--- Short process description ---
+I implemented the integration method with random nodes. The error is calculated using variance.
+An adaptation with a boolean parameter allows for the error to be calculated as the difference in mean value between iterations.
+Then, a method to use the Clenshaw-Curtis transformation was implemented.
+The final method created creates data-files to investigate how number of function calls, iterations, or integral value changes depending on number of new points thrown, N.
+Lastly, I copied the homework implementation of the integrator with predefined nodes so I could compare that with the random node implementation.
+
+--- Additional notes ---
 When saying variance is used as error, I refer to the error being (b-a)*sigma/sqrt(N).
 And when the error is the difference in mean, it is the absolute value of the mean from the curennt iteration minus the previous one, and multiplied by b-a.
 The Clenshaw-Curtis transformation is referred to as CC-transformation (sometimes just CC) in the Out.txt file and .svg figures.
